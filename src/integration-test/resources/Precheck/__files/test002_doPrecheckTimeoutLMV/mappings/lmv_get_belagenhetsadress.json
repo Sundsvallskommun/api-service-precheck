@@ -1,0 +1,19 @@
+{
+    "name": "lmv-get-belagenhetsadress",
+    "request": {
+        "method": "GET",
+        "urlPath": "/lmv/e776cb4f-966f-4e4f-a1ea-abb347b3a93d",
+        "queryParameters": {
+            "includeData": {
+                "equalTo": "basinformation"
+            },
+            "srid": {
+                "equalTo": "3006"
+            }
+        }
+    },
+    "response": {
+        "status": 500,
+        "fixedDelayMilliseconds": 1100
+    }
+}

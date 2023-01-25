@@ -1,0 +1,25 @@
+{
+    "name": "gis-get-precheck",
+    "request": {
+        "method": "GET",
+        "urlPath": "/gis/precheck",
+        "queryParameters": {
+            "northing": {
+                "equalTo": "619549.817"
+            },
+            "easting": {
+                "equalTo": "6919834.967"
+            },
+            "category": {
+                "equalTo": "DISTRICT_HEATING"
+            },
+            "crs": {
+                "equalTo": "3006"
+            }
+        }
+    },
+    "response": {
+        "status": 500,
+        "fixedDelayMilliseconds": 1100
+    }
+}

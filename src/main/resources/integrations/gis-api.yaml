@@ -1,0 +1,86 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: API GIS
+basePath: /origoserver/api/v1
+paths:
+  /precheck:
+    get:
+      description: Check to see if coordinates is within area for precheck.
+      operationId: preCheck
+      parameters:
+        -
+          name: northing
+          in: query
+          description: The northward-measured distance (the y-coordinate) of coordinates for a point
+          required: true
+          type: string
+        -
+          name: easting
+          in: query
+          description: The eastward-measured distance (the x-coordinate) of coordinates for a point
+          required: true
+          type: string
+        -
+          name: category
+          in: query
+          description: The category for the preCheck f.e. DISTRICT_HEATING
+          required: true
+          type: string
+        -
+          name: srid
+          in: query
+          description: "The coordinate reference system id of given coordinates, default 3006"
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Gives a answer if coordinates is within reach of service
+          schema:
+            type: object
+            properties:
+              deliverable:
+                type: boolean
+                description: States if service is deliverable.
+              futureDeliverable:
+                type: boolean
+                description: States if service is deliverable in the future.
+              plannedDevelopmentDate:
+                type: string
+                format: date
+                description: Gives a date for planned development.
+              metaData:
+                type: object
+                example: "type: DISTRICT_HEATING"
+                description: A list of additional metadata properties.
+                readOnly: true
+                additionalProperties:
+                  type: string
+                  example: "type: DISTRICT_HEATING"
+                  description: Map with name-value pairs
+                  readOnly: true
+            example:
+              deliverable: false
+              futureDeliverable: true
+              plannedDevelopmentDate: 2025-01-01
+              metaData:
+                -
+                  type: DISTRICT_HEATING
+        "400":
+          description: Bad request
+          schema:
+            type: string
+        "500":
+          description: Server error
+          schema:
+            type: string
+definitions:
+  metadata:
+    type: object
+    description: Map with name-value pairs
+    example: "type: DISTRICT_HEATING"
+    additionalProperties:
+      type: string
+      example: "type: DISTRICT_HEATING"
+      description: Map with name-value pairs
+      readOnly: true

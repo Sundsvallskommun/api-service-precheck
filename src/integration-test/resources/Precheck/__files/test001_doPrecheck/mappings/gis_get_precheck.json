@@ -1,0 +1,34 @@
+{
+    "name": "gis-get-precheck",
+    "request": {
+        "method": "GET",
+        "urlPath": "/gis/precheck",
+        "queryParameters": {
+            "northing": {
+                "equalTo": "619549.817"
+            },
+            "easting": {
+                "equalTo": "6919834.967"
+            },
+            "category": {
+                "equalTo": "DISTRICT_HEATING"
+            },
+            "crs": {
+                "equalTo": "3006"
+            }
+        }
+    },
+    "response": {
+        "headers": {
+            "Content-Type": "application/json; charset=utf-8"
+        },
+        "status": 200,
+        "jsonBody": {
+            "deliverable": false,
+            "futureDeliverable": true,
+            "metaData": {
+                "type": "DISTRICT_HEATING"
+            }
+        }
+    }
+}
