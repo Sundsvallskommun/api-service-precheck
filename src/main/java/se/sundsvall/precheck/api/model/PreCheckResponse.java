@@ -1,13 +1,14 @@
 package se.sundsvall.precheck.api.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.v3.oas.annotations.media.Schema;
+import static io.swagger.v3.oas.annotations.media.Schema.AccessMode.READ_ONLY;
 
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Objects;
 
-import static io.swagger.v3.oas.annotations.media.Schema.AccessMode.READ_ONLY;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Schema(description = "PreCheckResponse model")
@@ -33,11 +34,11 @@ public class PreCheckResponse {
 		return deliverable;
 	}
 
-	public void setDeliverable(boolean deliverable) {
+	public void setDeliverable(final boolean deliverable) {
 		this.deliverable = deliverable;
 	}
 
-	public PreCheckResponse withDeliverable(boolean deliverable) {
+	public PreCheckResponse withDeliverable(final boolean deliverable) {
 		this.deliverable = deliverable;
 		return this;
 	}
@@ -46,11 +47,11 @@ public class PreCheckResponse {
 		return futureDeliverable;
 	}
 
-	public void setFutureDeliverable(boolean futureDeliverable) {
+	public void setFutureDeliverable(final boolean futureDeliverable) {
 		this.futureDeliverable = futureDeliverable;
 	}
 
-	public PreCheckResponse withFutureDeliverable(boolean futureDeliverable) {
+	public PreCheckResponse withFutureDeliverable(final boolean futureDeliverable) {
 		this.futureDeliverable = futureDeliverable;
 		return this;
 	}
@@ -59,11 +60,11 @@ public class PreCheckResponse {
 		return plannedDevelopmentDate;
 	}
 
-	public void setPlannedDevelopmentDate(LocalDate plannedDevelopmentDate) {
+	public void setPlannedDevelopmentDate(final LocalDate plannedDevelopmentDate) {
 		this.plannedDevelopmentDate = plannedDevelopmentDate;
 	}
 
-	public PreCheckResponse withPlannedDevelopmentDate(LocalDate plannedDevelopmentDate) {
+	public PreCheckResponse withPlannedDevelopmentDate(final LocalDate plannedDevelopmentDate) {
 		this.plannedDevelopmentDate = plannedDevelopmentDate;
 		return this;
 	}
@@ -72,38 +73,35 @@ public class PreCheckResponse {
 		return metaData;
 	}
 
-	public void setMetaData(Map<String, String> metaData) {
+	public void setMetaData(final Map<String, String> metaData) {
 		this.metaData = metaData;
 	}
 
-	public PreCheckResponse withMetaData(Map<String, String> metaData) {
+	public PreCheckResponse withMetaData(final Map<String, String> metaData) {
 		this.metaData = metaData;
 		return this;
 	}
 
 	@Override
-	public int hashCode() { return Objects.hash(deliverable, futureDeliverable, plannedDevelopmentDate, metaData); }
+	public int hashCode() {
+		return Objects.hash(deliverable, futureDeliverable, metaData, plannedDevelopmentDate);
+	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (!(obj instanceof PreCheckResponse other)) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		PreCheckResponse other = (PreCheckResponse) obj;
-		return Objects.equals(deliverable, other.deliverable) &&
-				Objects.equals(futureDeliverable, other.futureDeliverable) &&
-				Objects.equals(plannedDevelopmentDate, other.plannedDevelopmentDate) &&
-				Objects.equals(metaData, other.metaData);
+		}
+		return (deliverable == other.deliverable) && (futureDeliverable == other.futureDeliverable) && Objects.equals(metaData, other.metaData) && Objects.equals(plannedDevelopmentDate, other.plannedDevelopmentDate);
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("PreCheckResponse [deliverable=").append(deliverable).append(", futureDeliverable=").append(futureDeliverable).append(", plannedDevelopmentDate=").append(plannedDevelopmentDate)
-				.append(", metaData=").append(metaData).append("]");
+		final StringBuilder builder = new StringBuilder();
+		builder.append("PreCheckResponse [deliverable=").append(deliverable).append(", futureDeliverable=").append(futureDeliverable).append(", plannedDevelopmentDate=").append(plannedDevelopmentDate).append(", metaData=").append(metaData).append("]");
 		return builder.toString();
 	}
 }
