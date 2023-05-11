@@ -1,24 +1,5 @@
 package se.sundsvall.precheck.service;
 
-import generated.se.sundsvall.gisapi.PreCheck200Response;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.zalando.problem.ThrowableProblem;
-import se.sundsvall.precheck.integration.gis.GISClient;
-import se.sundsvall.precheck.integration.lmv.LMVClient;
-import se.sundsvall.precheck.integration.lmv.model.Adressplatsattribut;
-import se.sundsvall.precheck.integration.lmv.model.Adressplatspunkt;
-import se.sundsvall.precheck.integration.lmv.model.Feature;
-import se.sundsvall.precheck.integration.lmv.model.FeatureCollection;
-import se.sundsvall.precheck.integration.lmv.model.Properties;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
@@ -29,10 +10,31 @@ import static org.zalando.problem.Status.NOT_IMPLEMENTED;
 import static se.sundsvall.precheck.api.model.Category.DISTRICT_HEATING;
 import static se.sundsvall.precheck.api.model.Category.ELECTRICITY;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.zalando.problem.ThrowableProblem;
+
+import generated.se.sundsvall.gisapi.PreCheck200Response;
+import se.sundsvall.precheck.integration.gis.GISClient;
+import se.sundsvall.precheck.integration.lmv.LMVClient;
+import se.sundsvall.precheck.integration.lmv.model.Adressplatsattribut;
+import se.sundsvall.precheck.integration.lmv.model.Adressplatspunkt;
+import se.sundsvall.precheck.integration.lmv.model.Feature;
+import se.sundsvall.precheck.integration.lmv.model.FeatureCollection;
+import se.sundsvall.precheck.integration.lmv.model.Properties;
+
 @ExtendWith(MockitoExtension.class)
 class PreCheckServiceTest {
 
 	final static String INCLUDE_DATA = "basinformation";
+
 	@Mock
 	private LMVClient lmvClientMock;
 
@@ -41,7 +43,7 @@ class PreCheckServiceTest {
 
 	@Mock
 	private FeatureCollection featureCollectionMock;
-	
+
 	@InjectMocks
 	private PreCheckService preCheckService;
 
@@ -55,7 +57,7 @@ class PreCheckServiceTest {
 
 		when(lmvClientMock.getAddress(addressId, INCLUDE_DATA, referenceSystem)).thenReturn(createFeatureCollectionSuccess());
 		when(gisClientMock.precheck(northing, easting, category.toString(), referenceSystem)).thenReturn(new PreCheck200Response().deliverable(true).futureDeliverable(false)
-				.plannedDevelopmentDate(LocalDate.now()));
+			.plannedDevelopmentDate(LocalDate.now()));
 
 		final var result = preCheckService.preCheck(addressId, category, referenceSystem);
 
@@ -74,7 +76,7 @@ class PreCheckServiceTest {
 
 		when(lmvClientMock.getAddress(addressId, INCLUDE_DATA, defaultReferenceSystem)).thenReturn(createFeatureCollectionSuccess());
 		when(gisClientMock.precheck(northing, easting, category.toString(), defaultReferenceSystem)).thenReturn(new PreCheck200Response().deliverable(true).futureDeliverable(false)
-				.plannedDevelopmentDate(LocalDate.now()));
+			.plannedDevelopmentDate(LocalDate.now()));
 
 		final var result = preCheckService.preCheck(addressId, category, null);
 
