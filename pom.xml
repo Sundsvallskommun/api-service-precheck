@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>se.sundsvall.dept44</groupId>
 		<artifactId>dept44-service-parent</artifactId>
-		<version>1.35</version>
+		<version>2.0.2</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>se.sundsvall</groupId>
@@ -14,11 +14,13 @@
 	<name>api-service-precheck</name>
 	<description>Check conditions infront of ordering</description>
 	<properties>
+		<!-- Pipeline properties -->
 		<docker.image.name>ms-precheck</docker.image.name>
 		<published.container.port.sandbox>8951</published.container.port.sandbox>
 		<published.container.port.test>8950</published.container.port.test>
 		<published.container.port.production>8950</published.container.port.production>
 		<sandbox.db>false</sandbox.db>
+		<!-- Service properties -->
 		<openapi-generator-maven-plugin>6.5.0</openapi-generator-maven-plugin>
 		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
 		<generated-sources-java-path>src/main/java</generated-sources-java-path>
@@ -67,13 +69,14 @@
 							<generateSupportingFiles>false</generateSupportingFiles>
 							<additionalProperties>useSwaggerAnnotations=false</additionalProperties>
 							<configOptions>
+								<useSpringBoot3>true</useSpringBoot3>
+								<useBeanValidation>false</useBeanValidation>
+								<useSwaggerAnnotations>false</useSwaggerAnnotations>
 								<sourceFolder>${generated-sources-java-path}</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
 								<modelPackage>generated.se.sundsvall.gisapi</modelPackage>
 								<openApiNullable>false</openApiNullable>
 								<generatePom>false</generatePom>
-								<useBeanValidation>false</useBeanValidation>
-								<useSwaggerAnnotations>false</useSwaggerAnnotations>
 								<interfaceOnly>true</interfaceOnly>
 								<enablePostProcessingFile>true</enablePostProcessingFile>
 							</configOptions>

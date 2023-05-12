@@ -1,15 +1,15 @@
 package se.sundsvall.precheck.service.mapper;
 
+import static java.util.Optional.ofNullable;
+
 import generated.se.sundsvall.gisapi.PreCheck200Response;
 import se.sundsvall.precheck.api.model.PreCheckResponse;
 
-import static java.util.Optional.ofNullable;
-
 public class GISMapper {
-	private GISMapper() {
-	}
 
-	public static PreCheckResponse toPreCheckResponse(PreCheck200Response gisPrecheckResponse) {
+	private GISMapper() {}
+
+	public static PreCheckResponse toPreCheckResponse(final PreCheck200Response gisPrecheckResponse) {
 		if (gisPrecheckResponse == null) {
 			return null;
 		}
@@ -19,4 +19,3 @@ public class GISMapper {
 			.withMetaData(gisPrecheckResponse.getMetaData());
 	}
 }
-

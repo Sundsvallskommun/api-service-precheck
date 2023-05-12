@@ -19,7 +19,7 @@ import se.sundsvall.dept44.configuration.feign.decoder.ProblemErrorDecoder;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static se.sundsvall.precheck.integration.lmv.configuration.LMVConfiguration.CLIENT_REGISTRATION_ID;
+import static se.sundsvall.precheck.integration.lmv.configuration.LMVConfiguration.CLIENT_ID;
 
 @ExtendWith(MockitoExtension.class)
 class LMVConfigurationTest {
@@ -50,7 +50,7 @@ class LMVConfigurationTest {
 
 		when(propertiesMock.connectTimeout()).thenReturn(connectTimeout);
 		when(propertiesMock.readTimeout()).thenReturn(readTimeout);
-		when(clientRepositoryMock.findByRegistrationId(CLIENT_REGISTRATION_ID)).thenReturn(clientRegistrationMock);
+		when(clientRepositoryMock.findByRegistrationId(CLIENT_ID)).thenReturn(clientRegistrationMock);
 
 		// Mock static FeignMultiCustomizer to enable spy and to verify that static method is being called
 		try (MockedStatic<FeignMultiCustomizer> feignMultiCustomizerMock = Mockito.mockStatic(FeignMultiCustomizer.class)) {
@@ -64,7 +64,7 @@ class LMVConfigurationTest {
 		// Verifications
 		verify(propertiesMock).connectTimeout();
 		verify(propertiesMock).readTimeout();
-		verify(clientRepositoryMock).findByRegistrationId(CLIENT_REGISTRATION_ID);
+		verify(clientRepositoryMock).findByRegistrationId(CLIENT_ID);
 		verify(feignMultiCustomizerSpy).withErrorDecoder(errorDecoderCaptor.capture());
 		verify(feignMultiCustomizerSpy).withRequestTimeoutsInSeconds(connectTimeout, readTimeout);
 		verify(feignMultiCustomizerSpy).withRetryableOAuth2InterceptorForClientRegistration(clientRegistrationMock);
@@ -73,6 +73,6 @@ class LMVConfigurationTest {
 		// Assert ErrorDecoder
 		Assertions.assertThat(errorDecoderCaptor.getValue())
 			.isInstanceOf(ProblemErrorDecoder.class)
-			.hasFieldOrPropertyWithValue("integrationName", CLIENT_REGISTRATION_ID);
+			.hasFieldOrPropertyWithValue("integrationName", CLIENT_ID);
 	}
 }

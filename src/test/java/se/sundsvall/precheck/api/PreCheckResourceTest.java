@@ -2,6 +2,7 @@ package se.sundsvall.precheck.api;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 import java.time.LocalDate;
@@ -19,19 +20,20 @@ import se.sundsvall.precheck.api.model.Category;
 import se.sundsvall.precheck.api.model.PreCheckResponse;
 import se.sundsvall.precheck.service.PreCheckService;
 
-@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = Application.class, webEnvironment = RANDOM_PORT)
 @ActiveProfiles("junit")
 class PreCheckResourceTest {
 
 	@MockBean
 	private PreCheckService serviceMock;
-	
+
 	@Autowired
 	private WebTestClient webTestClient;
-	
+
 	@Test
 	void getPrecheck() {
-		// Parameter values
+
+		// Arrange
 		final var addressId = "e776cb4f-966f-4e4f-a1ea-abb347b3a93d";
 		final var category = Category.DISTRICT_HEATING;
 		final var referenceSysten = "referenceSystem";
@@ -44,13 +46,15 @@ class PreCheckResourceTest {
 
 		when(serviceMock.preCheck(addressId, category, referenceSysten)).thenReturn(response);
 
+		// Act
 		webTestClient.get().uri("/address/{addressId}/{category}?referenceSystem={referenceSystem}", addressId, category, referenceSysten)
 			.exchange()
 			.expectStatus().isOk()
 			.expectHeader().contentType(APPLICATION_JSON)
 			.expectBody(PreCheckResponse.class)
 			.isEqualTo(response);
-		
+
+		// Assert
 		verify(serviceMock).preCheck(addressId, category, referenceSysten);
 	}
 }

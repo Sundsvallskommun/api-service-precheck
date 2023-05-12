@@ -11,14 +11,14 @@ import se.sundsvall.dept44.configuration.feign.decoder.ProblemErrorDecoder;
 @Import(FeignConfiguration.class)
 public class GISConfiguration {
 
-	public static final String CLIENT_REGISTRATION_ID = "gis";
+	public static final String CLIENT_ID = "gis";
 
 	@Bean
 	FeignBuilderCustomizer feignBuilderCustomizer(ClientRegistrationRepository clientRepository, GISProperties gisProperties) {
 		return FeignMultiCustomizer.create()
-				.withErrorDecoder(new ProblemErrorDecoder(CLIENT_REGISTRATION_ID))
+				.withErrorDecoder(new ProblemErrorDecoder(CLIENT_ID))
 				.withRequestTimeoutsInSeconds(gisProperties.connectTimeout(), gisProperties.readTimeout())
-				.withRetryableOAuth2InterceptorForClientRegistration(clientRepository.findByRegistrationId(CLIENT_REGISTRATION_ID))
+				.withRetryableOAuth2InterceptorForClientRegistration(clientRepository.findByRegistrationId(CLIENT_ID))
 				.composeCustomizersToOne();
 	}
 }
