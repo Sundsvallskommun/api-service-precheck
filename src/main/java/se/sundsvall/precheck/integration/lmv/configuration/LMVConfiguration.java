@@ -11,14 +11,14 @@ import se.sundsvall.dept44.configuration.feign.decoder.ProblemErrorDecoder;
 @Import(FeignConfiguration.class)
 public class LMVConfiguration {
 
-	public static final String CLIENT_REGISTRATION_ID = "lmv";
+	public static final String CLIENT_ID = "lmv";
 
 	@Bean
 	FeignBuilderCustomizer feignBuilderCustomizer(ClientRegistrationRepository clientRepository, LMVProperties lmvProperties) {
 		return FeignMultiCustomizer.create()
-				.withErrorDecoder(new ProblemErrorDecoder(CLIENT_REGISTRATION_ID))
+				.withErrorDecoder(new ProblemErrorDecoder(CLIENT_ID))
 				.withRequestTimeoutsInSeconds(lmvProperties.connectTimeout(), lmvProperties.readTimeout())
-				.withRetryableOAuth2InterceptorForClientRegistration(clientRepository.findByRegistrationId(CLIENT_REGISTRATION_ID))
+				.withRetryableOAuth2InterceptorForClientRegistration(clientRepository.findByRegistrationId(CLIENT_ID))
 				.composeCustomizersToOne();
 	}
 }
