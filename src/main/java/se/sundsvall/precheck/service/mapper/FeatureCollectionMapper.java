@@ -23,13 +23,13 @@ public class FeatureCollectionMapper {
 		}
 		return ofNullable(featureCollection.getFeatures()).orElse(emptyList()).stream()
 			.filter(Objects::nonNull)
-			.filter(feature -> "Feature".equalsIgnoreCase(ofNullable(feature.getType()).orElse("")))
+			.filter(feature -> "Feature".equalsIgnoreCase(feature.getType()))
 			.map(Feature::getProperties)
 			.map(Properties::getAdressplatsattribut)
 			.filter(Objects::nonNull)
 			.map(Adressplatsattribut::getAdressplatspunkt)
 			.filter(Objects::nonNull)
-			.filter(adressplatspunkt -> "Point".equalsIgnoreCase(ofNullable(adressplatspunkt.getType()).orElse("")))
+			.filter(adressplatspunkt -> "Point".equalsIgnoreCase(adressplatspunkt.getType()))
 			.map(Adressplatspunkt::getCoordinates)
 			.flatMap(List::stream)
 			.toList();
