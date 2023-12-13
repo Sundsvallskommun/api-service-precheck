@@ -1,0 +1,25 @@
+integration:
+  gis:
+    connectTimeout: 1
+    readTimeout: 1
+    url: http://localhost:${wiremock.server.port}/gis
+  lmv:
+    connectTimeout: 1
+    readTimeout: 1
+    url: http://localhost:${wiremock.server.port}/lmv
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          gis:
+            token-uri: http://localhost:${wiremock.server.port:}/api-gateway/token
+          lmv:
+            token-uri: http://localhost:${wiremock.server.port:}/api-gateway/token
+        registration:
+          gis:
+            client-id: the-client-id
+            client-secret: the-client-secret
+          lmv:
+            client-id: the-client-id
+            client-secret: the-client-secret

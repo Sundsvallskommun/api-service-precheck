@@ -1,0 +1,21 @@
+integration:
+  gis:
+    url: http://gis.url
+  lmv:
+    url: http://lmv.url
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          gis:
+            token-uri: http://token.url
+          lmv:
+            token-uri: http://token.url
+        registration:
+          gis:
+            client-id: the-client-id
+            client-secret: the-client-secret
+          lmv:
+            client-id: the-client-id
+            client-secret: the-client-secret

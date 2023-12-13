@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
@@ -27,11 +26,13 @@ public class PreCheckService {
 	private static final String ERROR_GET_COORDINATES = "Something went wrong when fetching coordinates";
 	private static final int NUMBER_OF_COORDINATES = 2;
 
-	@Autowired
-	private LMVClient lmvClient;
+	private final LMVClient lmvClient;
+	private final GISClient gisClient;
 
-	@Autowired
-	private GISClient gisClient;
+	public PreCheckService(LMVClient lmvClient, GISClient gisClient) {
+		this.lmvClient = lmvClient;
+		this.gisClient = gisClient;
+	}
 
 	public PreCheckResponse preCheck(final String addressId, final Category category, String referenceSystem) {
 
