@@ -17,6 +17,7 @@ settings.xml
 .classpath
 .settings/
 bin/
+/.factorypath
 
 # IntelliJ
 .idea
