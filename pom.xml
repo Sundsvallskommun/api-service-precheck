@@ -19,7 +19,6 @@
 		<published.container.port.test>8950</published.container.port.test>
 		<published.container.port.production>8950</published.container.port.production>
 		<!-- Service properties -->
-		<openapi-generator-maven-plugin>7.1.0</openapi-generator-maven-plugin>
 		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
 	</properties>
 	<dependencies>
@@ -68,7 +67,6 @@
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>${openapi-generator-maven-plugin}</version>
 				<executions>
 					<execution>
 						<id>gis-api</id>
@@ -79,7 +77,7 @@
 							<inputSpec>${project.basedir}/src/main/resources/integrations/gis-api.yaml
 							</inputSpec>
 							<output>${generated-sources-path}</output>
-							<generatorName>jaxrs-spec</generatorName>
+							<generatorName>spring</generatorName>
 							<generateApis>false</generateApis>
 							<generateSupportingFiles>false</generateSupportingFiles>
 							<additionalProperties>useSwaggerAnnotations=false</additionalProperties>
